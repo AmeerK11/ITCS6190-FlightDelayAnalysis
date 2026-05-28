@@ -4,7 +4,7 @@
 ## Project Overview
 An end-to-end big data analytics pipeline built with Apache Spark to analyze
 and predict U.S. domestic flight delays. The pipeline covers data ingestion,
-SQL-based analysis, real-time streaming simulation, and machine learning —
+SQL-based analysis, real-time streaming simulation, and machine learning 
 all developed using the Apache Spark ecosystem.
 
 ## Student
