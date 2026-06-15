@@ -26,6 +26,7 @@ print(f"✓ Loaded {total_rows:,} rows for streaming simulation")
 # ── 3. Micro-batch streaming simulation ───────────────────────────────────────
 BATCH_SIZE = 1000
 NUM_BATCHES = 5
+all_results = []
 
 for batch_num in range(1, NUM_BATCHES + 1):
     start = (batch_num - 1) * BATCH_SIZE
@@ -49,7 +50,18 @@ for batch_num in range(1, NUM_BATCHES + 1):
 
     print(f"── Micro-batch {batch_num} (rows {start}–{end}) ──")
     result.show(truncate=False)
+    
+    batch_result = result.toPandas()
+    batch_result.insert(0, 'batch', batch_num)
+    all_results.append(batch_result)    
+    
     time.sleep(2)
+    
+# ── 4. Save results ───────────────────────────────────────────────────────────
+os.makedirs("docs", exist_ok=True)
+pd.concat(all_results).to_csv("docs/streaming_results.csv", index=False)
+print("✓ Streaming results saved to docs/streaming_results.csv")
+
 
 spark.stop()
 print("✓ Streaming simulation complete.")
